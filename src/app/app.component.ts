@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../environments/env';
+import { AppService } from './_servies/app.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,15 @@ import { environment } from '../environments/env';
 })
 export class AppComponent implements OnInit {
   title = 'my-angular-app';
-  
-  constructor() {}
+
+  constructor(
+    private apiservice: AppService
+  ) { }
 
   ngOnInit() {
-    console.log(environment.apiUrl);
+    this.apiservice.getUsers().subscribe((response) => {
+      console.log('API Response:', response);
+    });
   }
 
 }
